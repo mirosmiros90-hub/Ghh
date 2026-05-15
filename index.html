@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Хата-мазанка: Оберіг села</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <svg class="icon-sprite" aria-hidden="true" focusable="false">
+      <symbol id="icon-clay" viewBox="0 0 64 64">
+        <defs>
+          <linearGradient id="clayGradient" x1="12" x2="52" y1="10" y2="56" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#e0a26f" />
+            <stop offset="0.55" stop-color="#b96f43" />
+            <stop offset="1" stop-color="#71391f" />
+          </linearGradient>
+        </defs>
+        <path fill="url(#clayGradient)" d="M10 42c0-11 7-20 18-24 8-3 19 0 24 8 6 10 1 24-11 29-14 6-31-1-31-13Z" />
+        <path fill="#f0c08e" d="M21 31c4-6 14-9 22-5 2 1 1 5-2 4-7-3-13-1-17 4-2 3-5 0-3-3Z" opacity="0.72" />
+        <path fill="#6b341d" d="M18 45c8 5 20 6 29-1-5 11-24 12-29 1Z" opacity="0.35" />
+      </symbol>
+      <symbol id="icon-flowers" viewBox="0 0 64 64">
+        <path stroke="#2f7a3f" stroke-linecap="round" stroke-width="4" d="M32 58V27M18 58c8-11 10-19 14-31M46 58c-8-11-10-19-14-31" />
+        <circle cx="32" cy="22" r="7" fill="#f6c445" />
+        <path fill="#b73542" d="M32 4c3 8 3 8 11 5-5 7-5 7 3 11-8 2-8 2-5 10-7-5-7-5-14 0 3-8 3-8-5-10 8-4 8-4 3-11 8 3 8 3 7-5Z" />
+        <path fill="#dc6a76" d="M15 21c3 6 3 6 9 4-4 5-4 5 2 9-7 1-7 1-5 8-5-4-5-4-11 0 2-7 2-7-5-8 6-4 6-4 2-9 6 2 6 2 8-4Z" />
+        <path fill="#dc6a76" d="M49 21c3 6 3 6 9 4-4 5-4 5 2 9-7 1-7 1-5 8-5-4-5-4-11 0 2-7 2-7-5-8 6-4 6-4 2-9 6 2 6 2 8-4Z" />
+      </symbol>
+      <symbol id="icon-supplies" viewBox="0 0 64 64">
+        <path fill="#9b6335" d="M9 22h46l-4 34H13L9 22Z" />
+        <path fill="#c9874a" d="M14 17h36c4 0 7 3 7 7H7c0-4 3-7 7-7Z" />
+        <path fill="#f1d099" d="M17 27h30v10H17z" opacity="0.9" />
+        <path fill="#68401f" d="M20 44h24v5H20z" opacity="0.55" />
+        <path fill="#ffe2a8" d="M20 12c7-6 17-6 24 0-7 5-17 5-24 0Z" />
+      </symbol>
+      <symbol id="icon-community" viewBox="0 0 64 64">
+        <circle cx="32" cy="20" r="10" fill="#c98251" />
+        <circle cx="16" cy="27" r="8" fill="#a85f3d" />
+        <circle cx="48" cy="27" r="8" fill="#e0a26f" />
+        <path fill="#8b3f31" d="M16 38c-8 0-13 6-13 14v3h25v-3c0-8-5-14-12-14Z" />
+        <path fill="#2f7a3f" d="M48 38c-7 0-12 6-12 14v3h25v-3c0-8-5-14-13-14Z" />
+        <path fill="#b63f2f" d="M32 34c-10 0-17 8-17 19v5h34v-5c0-11-7-19-17-19Z" />
+      </symbol>
+    </svg>
+
+    <main class="app-shell" aria-labelledby="game-title">
+      <section class="hero card">
+        <div>
+          <p class="eyebrow">Стратегічна гра про українську оселю</p>
+          <h1 id="game-title">Хата-мазанка: Оберіг села</h1>
+          <p class="intro">
+            Відбудовуй мазанку по шарах, клич сусідів, бережи сили й переживай щоденні події,
+            щоб перетворити глиняну основу на живу оселю громади.
+          </p>
+        </div>
+        <div class="level-picker" aria-label="Вибір рівня">
+          <label for="level-select">Рівень</label>
+          <select id="level-select"></select>
+          <button id="new-level" class="secondary small">Почати рівень</button>
+        </div>
+      </section>
+
+      <section class="status-grid" aria-label="Стан гри">
+        <article class="stat" data-stat="day"><span>День</span><strong><span id="day">1</span>/<span id="max-days">7</span></strong></article>
+        <article class="stat" data-stat="heart"><span>Серце хати</span><strong><span id="heart">0</span>%</strong><meter id="heart-meter" min="0" max="100" value="0"></meter></article>
+        <article class="stat" data-stat="supplies"><svg><use href="#icon-supplies" /></svg><span>Запаси</span><strong id="supplies">0</strong></article>
+        <article class="stat" data-stat="community"><svg><use href="#icon-community" /></svg><span>Громада</span><strong><span id="community">0</span>%</strong></article>
+        <article class="stat" data-stat="fatigue"><span>Втома</span><strong><span id="fatigue">0</span>%</strong><meter id="fatigue-meter" min="0" max="100" value="0"></meter></article>
+        <article class="stat" data-stat="decor"><svg><use href="#icon-flowers" /></svg><span>Рідкісні оздоби</span><strong id="rare-decor">0</strong></article>
+      </section>
+
+      <section class="main-board">
+        <section class="scene card" aria-label="Сільський двір з хатою мазанкою">
+          <div class="sky"></div>
+          <div class="daily-event" id="daily-event"></div>
+          <div class="house" id="house" aria-hidden="true">
+            <div class="house-shadow"></div>
+            <div class="foundation layer"></div>
+            <div class="walls layer" id="wall">
+              <div class="whitewash-glow"></div>
+              <div class="window window-left"></div>
+              <div class="window window-right"></div>
+              <div class="door"></div>
+              <div class="painted-trim"></div>
+            </div>
+            <div class="roof layer" id="roof"></div>
+            <div class="chimney layer"></div>
+            <div class="decorated-windows layer"></div>
+          </div>
+          <div class="garden" id="garden" aria-hidden="true">
+            <svg><use href="#icon-flowers" /></svg><svg><use href="#icon-flowers" /></svg><svg><use href="#icon-flowers" /></svg>
+          </div>
+          <div class="ground"></div>
+        </section>
+
+        <aside class="side-panel">
+          <section class="card level-card">
+            <h2 id="level-title">Рівень</h2>
+            <p id="level-description"></p>
+            <ul id="requirements"></ul>
+          </section>
+
+          <section class="card neighbors-card">
+            <h2>Сусіди</h2>
+            <p>Запроси конкретного NPC: це коштує запаси, але різко підсилює громаду.</p>
+            <div id="neighbor-list" class="neighbor-list"></div>
+          </section>
+        </aside>
+      </section>
+
+      <section class="actions card" aria-label="Дії гравця" id="actions"></section>
+
+      <section class="story-panel card" aria-live="polite">
+        <h2>Літопис двору</h2>
+        <p id="message"></p>
+      </section>
+
+      <section class="controls card">
+        <button id="next-level" class="primary">Наступний рівень</button>
+        <button id="restart" class="secondary">Скинути прогрес</button>
+      </section>
+    </main>
+
+    <div class="dialogue" id="dialogue" role="dialog" aria-live="polite" aria-label="Порада сусіда" hidden>
+      <div class="dialogue-card">
+        <button id="close-dialogue" class="close" aria-label="Закрити">×</button>
+        <strong id="dialogue-name"></strong>
+        <p id="dialogue-text"></p>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
