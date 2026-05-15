@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Хата-мазанка: Оберіг села</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="game-shell" aria-labelledby="game-title">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Українська мінігра</p>
+          <h1 id="game-title">Хата-мазанка: Оберіг села</h1>
+          <p class="intro">
+            Допоможи господарям відновити білу мазанку до вечорниць: заміси глину,
+            побіли стіни, полагодь стріху та прикрась оселю мальвами.
+          </p>
+        </div>
+        <div class="sun" aria-hidden="true"></div>
+      </section>
+
+      <section class="hud" aria-label="Стан гри">
+        <div class="stat">
+          <span>День</span>
+          <strong id="day">1</strong>
+        </div>
+        <div class="stat">
+          <span>Серце хати</span>
+          <strong><span id="coziness">35</span>%</strong>
+        </div>
+        <div class="stat">
+          <span>Запаси</span>
+          <strong id="supplies">8</strong>
+        </div>
+        <div class="stat">
+          <span>Громада</span>
+          <strong><span id="community">20</span>%</strong>
+        </div>
+      </section>
+
+      <section class="scene" aria-label="Сільський двір з хатою мазанкою">
+        <div class="sky"></div>
+        <div class="house" id="house" aria-hidden="true">
+          <div class="roof" id="roof"></div>
+          <div class="chimney"></div>
+          <div class="wall" id="wall">
+            <div class="window window-left"></div>
+            <div class="window window-right"></div>
+            <div class="door"></div>
+            <div class="ornament ornament-left">✿</div>
+            <div class="ornament ornament-right">✿</div>
+          </div>
+        </div>
+        <div class="garden" id="garden" aria-hidden="true">
+          <span>🌻</span><span>🌿</span><span>🌼</span><span>🌿</span><span>🌻</span>
+        </div>
+        <div class="ground"></div>
+      </section>
+
+      <section class="actions" aria-label="Дії гравця">
+        <button data-action="clay">Замісити глину</button>
+        <button data-action="whitewash">Побілити стіни</button>
+        <button data-action="roof">Полагодити стріху</button>
+        <button data-action="garden">Посадити мальви</button>
+        <button data-action="invite">Покликати сусідів</button>
+      </section>
+
+      <section class="story-panel" aria-live="polite">
+        <h2>Літопис двору</h2>
+        <p id="message">Бабуся лишила поради: почни з глини, бо міцна стіна тримає тепло й памʼять.</p>
+      </section>
+
+      <section class="goal-card">
+        <h2>Мета</h2>
+        <p>
+          До 7-го дня набери 100% «серця хати». Розумно витрачай запаси: якщо вони закінчаться,
+          поклич сусідів або заміси глину.
+        </p>
+        <button id="restart" class="secondary">Почати заново</button>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
