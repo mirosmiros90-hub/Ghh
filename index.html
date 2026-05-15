@@ -2,82 +2,232 @@
 <html lang="uk">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#b86f4a" />
+    <meta
+      name="description"
+      content="Затишна стратегічна гра про будівництво української хати-мазанки за 7 днів."
+    />
     <title>Хата-мазанка: Оберіг села</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="game-shell" aria-labelledby="game-title">
-      <section class="hero">
-        <div>
-          <p class="eyebrow">Українська мінігра</p>
+    <main class="app-shell" aria-labelledby="game-title">
+      <section class="title-card" aria-label="Вступ до гри">
+        <div class="title-copy">
+          <p class="eyebrow">Стратегія · українське село · 7 днів</p>
           <h1 id="game-title">Хата-мазанка: Оберіг села</h1>
           <p class="intro">
-            Допоможи господарям відновити білу мазанку до вечорниць: заміси глину,
-            побіли стіни, полагодь стріху та прикрась оселю мальвами.
+            Зведіть оселю, яка береже родину й памʼять села. Плануйте роботу,
+            запрошуйте людей та стежте за втомою, щоб «Серце хати» засяяло на 100%.
           </p>
         </div>
-        <div class="sun" aria-hidden="true"></div>
-      </section>
-
-      <section class="hud" aria-label="Стан гри">
-        <div class="stat">
-          <span>День</span>
-          <strong id="day">1</strong>
-        </div>
-        <div class="stat">
-          <span>Серце хати</span>
-          <strong><span id="coziness">35</span>%</strong>
-        </div>
-        <div class="stat">
-          <span>Запаси</span>
-          <strong id="supplies">8</strong>
-        </div>
-        <div class="stat">
-          <span>Громада</span>
-          <strong><span id="community">20</span>%</strong>
-        </div>
-      </section>
-
-      <section class="scene" aria-label="Сільський двір з хатою мазанкою">
-        <div class="sky"></div>
-        <div class="house" id="house" aria-hidden="true">
-          <div class="roof" id="roof"></div>
-          <div class="chimney"></div>
-          <div class="wall" id="wall">
-            <div class="window window-left"></div>
-            <div class="window window-right"></div>
-            <div class="door"></div>
-            <div class="ornament ornament-left">✿</div>
-            <div class="ornament ornament-right">✿</div>
+        <div class="level-card" aria-label="Вибір рівня складності">
+          <label for="level-select">Рівень</label>
+          <select id="level-select"></select>
+          <p id="level-description">Оберіть виклик для нового будівництва.</p>
+          <div class="save-row">
+            <span>Найкращий результат</span>
+            <strong id="high-score">0%</strong>
           </div>
         </div>
-        <div class="garden" id="garden" aria-hidden="true">
-          <span>🌻</span><span>🌿</span><span>🌼</span><span>🌿</span><span>🌻</span>
+      </section>
+
+      <section class="hud" aria-label="Показники гри">
+        <article class="hud-card day-card">
+          <span class="hud-label">День</span>
+          <strong><span id="day">1</span>/7</strong>
+        </article>
+        <article class="hud-card progress-card">
+          <span class="hud-label">Серце хати</span>
+          <strong><span id="progress">0</span>%</strong>
+          <div class="meter" aria-hidden="true"><span id="progress-meter"></span></div>
+        </article>
+        <article class="hud-card resource-card">
+          <span class="resource-icon" aria-hidden="true">◒</span>
+          <span class="hud-label">Глина</span>
+          <strong id="clay">0</strong>
+        </article>
+        <article class="hud-card resource-card">
+          <span class="resource-icon" aria-hidden="true">✦</span>
+          <span class="hud-label">Запаси</span>
+          <strong id="supplies">0</strong>
+        </article>
+        <article class="hud-card resource-card">
+          <span class="resource-icon" aria-hidden="true">❖</span>
+          <span class="hud-label">Громада</span>
+          <strong id="community">0</strong>
+        </article>
+        <article class="hud-card fatigue-card">
+          <span class="hud-label">Втома</span>
+          <strong><span id="fatigue">0</span>%</strong>
+          <div class="meter fatigue-meter" aria-hidden="true"><span id="fatigue-meter"></span></div>
+        </article>
+      </section>
+
+      <section class="board">
+        <section class="scene-card" aria-label="Візуальний стан хати-мазанки">
+          <div class="scene-toolbar">
+            <div>
+              <span class="scene-kicker">Стан будівництва</span>
+              <h2 id="house-stage-title">Глиняні стіни</h2>
+            </div>
+            <span id="efficiency-badge" class="badge">Ефективність 100%</span>
+          </div>
+
+          <div class="khata-scene">
+            <div class="sun" aria-hidden="true"></div>
+            <div class="cloud cloud-one" aria-hidden="true"></div>
+            <div class="cloud cloud-two" aria-hidden="true"></div>
+
+            <svg
+              id="khata-svg"
+              class="khata-svg"
+              viewBox="0 0 720 460"
+              role="img"
+              aria-labelledby="khata-title khata-desc"
+            >
+              <title id="khata-title">Хата-мазанка, що змінюється під час гри</title>
+              <desc id="khata-desc">
+                Ілюстрація має пʼять етапів: основа, біла мазанка, стріха, орнаменти та квіти.
+              </desc>
+              <defs>
+                <linearGradient id="wallClay" x1="0" x2="1">
+                  <stop offset="0%" stop-color="#b9754d" />
+                  <stop offset="100%" stop-color="#d89a68" />
+                </linearGradient>
+                <linearGradient id="whitePlaster" x1="0" x2="1">
+                  <stop offset="0%" stop-color="#fff7dc" />
+                  <stop offset="100%" stop-color="#fffef4" />
+                </linearGradient>
+                <linearGradient id="roofThatch" x1="0" x2="1">
+                  <stop offset="0%" stop-color="#b87538" />
+                  <stop offset="55%" stop-color="#e0ad62" />
+                  <stop offset="100%" stop-color="#9e5e2d" />
+                </linearGradient>
+                <filter id="softShadow" x="-20%" y="-20%" width="140%" height="150%">
+                  <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#6f422b" flood-opacity="0.24" />
+                </filter>
+              </defs>
+
+              <path class="hill hill-back" d="M0 332 C120 285 218 322 330 300 C462 274 552 278 720 318 L720 460 L0 460 Z" />
+              <path class="hill hill-front" d="M0 365 C124 328 234 348 355 328 C498 304 604 330 720 354 L720 460 L0 460 Z" />
+
+              <g class="khata" filter="url(#softShadow)">
+                <rect class="foundation" x="150" y="315" width="420" height="34" rx="12" />
+                <rect class="wall-base" x="175" y="190" width="370" height="145" rx="24" />
+                <path class="plaster-layer" d="M183 198 H537 V335 H175 V210 C175 203 177 200 183 198 Z" />
+                <g class="roof-layer">
+                  <path class="roof-main" d="M122 200 C206 125 292 93 377 104 C454 114 530 143 598 200 L575 226 C450 204 288 203 143 226 Z" />
+                  <path class="roof-ridge" d="M185 185 C288 137 422 139 547 185" />
+                  <path class="roof-straw" d="M164 211 C190 232 211 232 237 209" />
+                  <path class="roof-straw" d="M247 204 C273 228 302 229 329 202" />
+                  <path class="roof-straw" d="M343 202 C376 232 414 231 446 203" />
+                  <path class="roof-straw" d="M461 207 C493 232 520 231 551 211" />
+                </g>
+
+                <g class="home-details">
+                  <rect class="window" x="215" y="235" width="70" height="62" rx="14" />
+                  <path class="window-cross" d="M250 238 V295 M218 266 H282" />
+                  <rect class="window" x="434" y="235" width="70" height="62" rx="14" />
+                  <path class="window-cross" d="M469 238 V295 M437 266 H501" />
+                  <path class="door" d="M326 335 V263 C326 237 394 237 394 263 V335 Z" />
+                  <circle class="door-knob" cx="379" cy="299" r="5" />
+                </g>
+
+                <g class="ornament-layer">
+                  <path class="ornament-line" d="M205 215 C238 199 275 199 308 215" />
+                  <path class="ornament-line" d="M412 215 C445 199 482 199 515 215" />
+                  <circle class="ornament-dot" cx="225" cy="213" r="6" />
+                  <circle class="ornament-dot" cx="256" cy="207" r="6" />
+                  <circle class="ornament-dot" cx="287" cy="213" r="6" />
+                  <circle class="ornament-dot" cx="432" cy="213" r="6" />
+                  <circle class="ornament-dot" cx="463" cy="207" r="6" />
+                  <circle class="ornament-dot" cx="494" cy="213" r="6" />
+                </g>
+              </g>
+
+              <g class="flower-layer">
+                <path class="stem" d="M127 362 V302 M605 364 V294 M650 374 V326 M90 378 V333" />
+                <g class="flower" transform="translate(127 298)">
+                  <circle r="9" /><circle cx="14" cy="2" r="8" /><circle cx="-13" cy="3" r="8" /><circle cy="-12" r="8" />
+                </g>
+                <g class="flower" transform="translate(605 290)">
+                  <circle r="9" /><circle cx="14" cy="2" r="8" /><circle cx="-13" cy="3" r="8" /><circle cy="-12" r="8" />
+                </g>
+                <g class="flower small" transform="translate(650 322)">
+                  <circle r="7" /><circle cx="11" cy="1" r="6" /><circle cx="-10" cy="2" r="6" /><circle cy="-10" r="6" />
+                </g>
+                <g class="flower small" transform="translate(90 329)">
+                  <circle r="7" /><circle cx="11" cy="1" r="6" /><circle cx="-10" cy="2" r="6" /><circle cy="-10" r="6" />
+                </g>
+              </g>
+            </svg>
+          </div>
+        </section>
+
+        <aside class="side-panel">
+          <section class="npc-card" aria-label="Гість дня">
+            <span class="panel-kicker">Гість біля воріт</span>
+            <h2 id="visitor-name">Дід Василь</h2>
+            <p id="visitor-text">Міряє рівність стін і радить не поспішати.</p>
+          </section>
+
+          <section class="actions-card" aria-label="Меню дій">
+            <div class="action-group">
+              <h2>Робота</h2>
+              <button data-action="buildWalls">
+                <span>◒</span>
+                <strong>Місити стіни</strong>
+                <small>Глина → Серце</small>
+              </button>
+              <button data-action="thatchedRoof">
+                <span>⌂</span>
+                <strong>Крити стріху</strong>
+                <small>Запаси + глина</small>
+              </button>
+              <button data-action="decorate" id="decorate-button">
+                <span>✿</span>
+                <strong>Розмалювати</strong>
+                <small>Відкривається на 50%</small>
+              </button>
+            </div>
+
+            <div class="action-group">
+              <h2>Громада</h2>
+              <button data-action="inviteMarusia">
+                <span>✦</span>
+                <strong>Покликати Марусю</strong>
+                <small>Більше запасів</small>
+              </button>
+              <button data-action="inviteYouth">
+                <span>❖</span>
+                <strong>Скликати молодь</strong>
+                <small>Швидко, але втомно</small>
+              </button>
+            </div>
+
+            <div class="action-group">
+              <h2>Відпочинок</h2>
+              <button data-action="rest">
+                <span>☕</span>
+                <strong>Вечірній перепочинок</strong>
+                <small>Менше втоми</small>
+              </button>
+            </div>
+          </section>
+        </aside>
+      </section>
+
+      <section class="log-card" aria-label="Журнал подій">
+        <div class="log-heading">
+          <div>
+            <span class="panel-kicker">Літопис</span>
+            <h2>Що сталося</h2>
+          </div>
+          <button id="restart" class="secondary-button">Нова гра</button>
         </div>
-        <div class="ground"></div>
-      </section>
-
-      <section class="actions" aria-label="Дії гравця">
-        <button data-action="clay">Замісити глину</button>
-        <button data-action="whitewash">Побілити стіни</button>
-        <button data-action="roof">Полагодити стріху</button>
-        <button data-action="garden">Посадити мальви</button>
-        <button data-action="invite">Покликати сусідів</button>
-      </section>
-
-      <section class="story-panel" aria-live="polite">
-        <h2>Літопис двору</h2>
-        <p id="message">Бабуся лишила поради: почни з глини, бо міцна стіна тримає тепло й памʼять.</p>
-      </section>
-
-      <section class="goal-card">
-        <h2>Мета</h2>
-        <p>
-          До 7-го дня набери 100% «серця хати». Розумно витрачай запаси: якщо вони закінчаться,
-          поклич сусідів або заміси глину.
-        </p>
-        <button id="restart" class="secondary">Почати заново</button>
+        <ol id="log" class="log-list" aria-live="polite"></ol>
       </section>
     </main>
 
