@@ -1,24 +1,45 @@
-# Хата-мазанка: Оберіг села
+# Historical Scene Generator
 
-Професійна браузерна стратегія українською мовою про відбудову традиційної хати-мазанки за сім ігрових днів.
+A production-style Next.js application for creating cinematic, historically accurate AI prompts for video and image generation.
 
-## Особливості
+## What it does
 
-- **Три рівні складності:** молода родинна хата, садиба сільського отамана та музей давньої спадщини.
-- **Динамічна економіка:** глина, запаси, громада, втома та прогрес «Серця хати».
-- **Семиденний цикл:** кожна дія завершує день, а випадкові ранкові події змінюють план.
-- **Соціальна система:** до двору приходять Дід Василь, Сусідка Маруся та Сільська молодь.
-- **Візуальна еволюція:** SVG-хата проходить 5 станів — глиняні стіни, побілка, стріха, орнаменти та квіти.
-- **Збереження:** `localStorage` памʼятає поточний рівень і найкращий результат для кожної складності.
-- **Mobile first:** великі сенсорні кнопки, адаптивна сітка й вигляд автономного вебзастосунку.
+Historical Scene Generator randomly combines expandable databases of locations, weather, seasons, professions, objects, food, lighting, atmosphere, emotions, camera movement, sounds, clothing, architecture, actions, and time periods to create unique scenes for:
 
-## Як грати
+- Veo 3 video prompts
+- Sora video prompts
+- Kling video prompts
+- Midjourney image prompts
+- Imagen prompts
+- Flux prompts
+- YouTube Shorts hook ideas
+- Video titles, hashtags, scene descriptions, thumbnails, and storyboard beats
 
-Відкрийте `index.html` у сучасному браузері. За 7 днів потрібно довести «Серце хати» до 100%.
-Плануйте дії в трьох групах:
+The generator specializes in 19th-century Ukrainian village life, authentic clay houses / мазанки, historical food preparation, peasant daily life, farming, markets, rural atmosphere, Soviet-era interiors, Khrushchyovka apartments, Soviet grocery queues, and realistic cinematic action.
 
-1. **Робота:** місити стіни, крити стріху, розмальовувати хату після відкриття 50% прогресу.
-2. **Громада:** кликати Марусю по запаси або сільську молодь для швидкої, але втомної допомоги.
-3. **Відпочинок:** зменшувати втому, щоб ефективність роботи не падала.
+## Features
 
-Гра не потребує збірки або зовнішніх залежностей.
+- Modern dark cinematic interface with glassmorphism panels and responsive mobile layout.
+- Advanced modular randomization engine with duplicate fingerprint avoidance.
+- Historical authenticity rules for Ukrainian village and Soviet-era scenes.
+- Required 8-second video prompt constraints: no dialogue, no subtitles, no visible text, no logos, no watermarks, realistic ambient sound only.
+- Creative modifiers: Generate Similar Scene, More Cinematic, More Realistic, More Emotional, More Soviet, and More Ukrainian Village.
+- Scene history and favorites stored in `localStorage`.
+- TXT, JSON, Markdown downloads and clipboard copying.
+- AI thumbnail concept, storyboard preview, palette selector, and sliders for camera intensity, realism, chaos, and complexity.
+
+## Development
+
+```bash
+npm install
+npm run dev
+```
+
+Then open `http://localhost:3000`.
+
+## Production
+
+```bash
+npm run build
+npm run start
+```
