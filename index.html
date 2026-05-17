@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Хата-мазанка: стратегія відбудови</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <svg class="sprite" aria-hidden="true">
+    <symbol id="i-clay" viewBox="0 0 64 64"><path fill="#8a4b2b" d="M7 42c0-14 13-28 29-28 13 0 23 9 23 21 0 14-13 24-29 24C17 59 7 52 7 42Z"/><path fill="#d79a65" d="M19 32c4-8 17-14 28-8 3 2 1 7-3 5-8-4-17 0-21 6-2 4-7 1-4-3Z"/><path fill="#5b2f1c" opacity=".35" d="M15 45c9 7 27 8 38-3-4 13-28 19-38 3Z"/></symbol>
+    <symbol id="i-flower" viewBox="0 0 64 64"><path d="M32 58V25M19 58c5-12 8-22 13-33m13 33c-5-12-8-22-13-33" stroke="#2d7d45" stroke-width="4" stroke-linecap="round"/><path fill="#ba3142" d="M32 3c3 9 3 9 12 5-5 8-5 8 4 13-10 2-10 2-6 11-8-6-8-6-16 0 4-9 4-9-6-11 9-5 9-5 4-13 9 4 9 4 8-5Z"/><circle cx="32" cy="21" r="7" fill="#ffd05a"/><path fill="#e36a79" d="M14 23c3 7 3 7 10 4-4 6-4 6 3 10-8 1-8 1-5 9-7-5-7-5-13 0 3-8 3-8-5-9 7-4 7-4 3-10 7 3 7 3 7-4Zm36 0c3 7 3 7 10 4-4 6-4 6 3 10-8 1-8 1-5 9-7-5-7-5-13 0 3-8 3-8-5-9 7-4 7-4 3-10 7 3 7 3 7-4Z"/></symbol>
+    <symbol id="i-supplies" viewBox="0 0 64 64"><path fill="#8b5a32" d="M10 21h44l-4 36H14L10 21Z"/><path fill="#c58345" d="M15 14h34c5 0 9 4 9 9H6c0-5 4-9 9-9Z"/><path fill="#ffe2a7" d="M20 28h25v11H20z"/><path fill="#5d3a20" opacity=".45" d="M21 46h22v5H21z"/><path fill="#f7cf83" d="M21 11c7-6 16-6 23 0-7 5-16 5-23 0Z"/></symbol>
+    <symbol id="i-community" viewBox="0 0 64 64"><circle cx="32" cy="18" r="10" fill="#c98251"/><circle cx="16" cy="27" r="8" fill="#965337"/><circle cx="48" cy="27" r="8" fill="#e0a26f"/><path fill="#8b3a2e" d="M3 55c0-10 5-17 13-17s13 7 13 17H3Z"/><path fill="#2e7d46" d="M35 55c0-10 5-17 13-17s13 7 13 17H35Z"/><path fill="#b63f2f" d="M14 59c0-14 8-24 18-24s18 10 18 24H14Z"/></symbol>
+  </svg>
+
+  <main class="app">
+    <header class="hero card">
+      <div>
+        <p class="eyebrow">Українська стратегічна гра</p>
+        <h1>Хата-мазанка: Оберіг села</h1>
+        <p>Будуй оселю шарами, керуй запасами, клич сусідів і не доводь майстрів до виснаження.</p>
+      </div>
+      <div class="level-controls">
+        <label for="levelSelect">Рівень</label>
+        <select id="levelSelect"></select>
+        <button id="startLevel">Почати</button>
+      </div>
+    </header>
+
+    <section class="stats" aria-label="Показники гри">
+      <article class="stat" data-pulse="day"><small>День</small><strong><span id="day">1</span>/<span id="daysTotal">7</span></strong></article>
+      <article class="stat" data-pulse="heart"><small>Серце хати</small><strong><span id="heart">0</span>%</strong><meter id="heartMeter" min="0" max="100"></meter></article>
+      <article class="stat" data-pulse="supplies"><svg><use href="#i-supplies"/></svg><small>Запаси</small><strong id="supplies">0</strong></article>
+      <article class="stat" data-pulse="community"><svg><use href="#i-community"/></svg><small>Громада</small><strong><span id="community">0</span>%</strong></article>
+      <article class="stat" data-pulse="fatigue"><small>Втома</small><strong><span id="fatigue">0</span>%</strong><meter id="fatigueMeter" min="0" max="100"></meter></article>
+      <article class="stat" data-pulse="decor"><svg><use href="#i-flower"/></svg><small>Оздоби</small><strong id="decor">0</strong></article>
+    </section>
+
+    <section class="board">
+      <section class="scene card">
+        <div class="event" id="eventBox"></div>
+        <div class="house" id="house" aria-label="Хата, що змінюється з прогресом" role="img">
+          <div class="shadow"></div>
+          <div class="foundation layer"></div>
+          <div class="walls layer"><div class="wash"></div><div class="window left"></div><div class="window right"></div><div class="door"></div><div class="trim"></div></div>
+          <div class="roof layer"></div>
+          <div class="chimney layer"></div>
+          <div class="decorated layer"></div>
+        </div>
+        <div class="flowers" id="flowers"><svg><use href="#i-flower"/></svg><svg><use href="#i-flower"/></svg><svg><use href="#i-flower"/></svg></div>
+      </section>
+
+      <aside class="panel">
+        <section class="card info"><h2 id="levelName"></h2><p id="levelText"></p><ul id="goals"></ul></section>
+        <section class="card info"><h2>Сусіди</h2><p>Запрошення коштує запаси, зате дає великий приріст громади й сюжетну пораду.</p><div id="neighbors" class="neighbors"></div></section>
+      </aside>
+    </section>
+
+    <section class="actions card" id="actions" aria-label="Дії"></section>
+    <section class="log card"><h2>Літопис двору</h2><p id="log"></p></section>
+    <footer class="footer card"><button id="nextLevel">Наступний рівень</button><button id="reset">Скинути збереження</button></footer>
+  </main>
+
+  <div class="dialog" id="dialog" role="dialog" aria-modal="false" hidden>
+    <div class="bubble"><button id="closeDialog" aria-label="Закрити">×</button><h2 id="dialogName"></h2><p id="dialogText"></p></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
